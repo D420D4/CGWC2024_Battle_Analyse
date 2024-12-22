@@ -1,0 +1,121 @@
+    <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - CodingGame Interception</title>
+    <!-- Lien vers le fichier CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@icon/dashicons@0.9.0-alpha.4/dashicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+</head>
+<body>
+<h1>CodingGame Winter Challenge</h1>
+
+<!-- Conteneur principal en flex -->
+<div id="container">
+
+    <div>
+
+        <div id="battleIdInput">
+            <label for="battleId"><strong>Battle ID:</strong></label>
+            <input type="text" id="battleId" placeholder="Enter Battle ID">
+            <button id="loadBattle" title="Load Battle">Load</button>
+        </div>
+
+        <div id="errorMessage" style="color: red; display: none; margin-top: 10px;"></div>
+
+        <div id="animationZone">
+            <h2>Game</h2>
+            <canvas id="myCanvas" width="920px" height="500"></canvas>
+
+            <div id="animationControls">
+                <button id="btnStart" title="Début">
+                    <span class="dashicons dashicons-controls-skipback"></span>
+                </button>
+                <button id="btnPrevious" title="Précédent">
+                    <span class="dashicons dashicons-controls-back"></span>
+                </button>
+                <button id="btnPlayPause" title="Lecture/Pause">
+                    <span class="dashicons dashicons-controls-play"></span>
+                </button>
+                <button id="btnNext" title="Suivant">
+                    <span class="dashicons dashicons-controls-forward"></span>
+                </button>
+                <button id="btnEnd" title="Fin">
+                    <span class="dashicons dashicons-controls-skipforward"></span>
+                </button>
+                <span id="animationPosition">
+                    <span class="dashicons dashicons-format-video"></span> : <span id="currentFrameId">0</span> / <span id="totalFrames">0</span>
+                </span>
+            </div>
+
+            <div id="heatmapControls">
+                <h3>Heatmap Controls</h3>
+                <div id="heatmapButtons"></div>
+            </div>
+
+            <div id="animationInfo">
+                <p><strong>Game ID:</strong> <span id="gameId">-</span></p>
+                <p><strong>Seed:</strong> <span id="seed">-</span></p>
+                <p><strong>Scores:</strong> <span id="scores">-</span></p>
+            </div>
+        </div>
+
+        <!-- 2ème colonne : Zone des logs -->
+        <div id="logsZone">
+            <h2>Logs</h2>
+
+            <!-- On réutilise ton logsContainer en flex pour séparer Joueur 0 et Joueur 1 -->
+            <div id="framesLogsContainer">
+                <table id="framesTable">
+                    <thead>
+                    <tr>
+                        <th>Frame #</th>
+                        <th>Joueur 0</th>
+                        <th>Joueur 1</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Les lignes seront générées en JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <!-- 3ème colonne : Zone des stats -->
+    <div id="statsZone">
+        <!-- Indicateur visuel du leader (score0 vs score1) -->
+        <div id="leaderIndicator"></div>
+
+        <div id="treesContainer" style="display: flex; gap: 2rem; justify-content: center; margin-top: 1rem;">
+            <canvas id="tree0Canvas" width="400" height="400"></canvas>
+            <canvas id="tree1Canvas" width="400" height="400"></canvas>
+        </div>
+
+        <div style="display: flex; gap: 2rem; justify-content: center;">
+            <canvas id="linePlayer0" width="400" height="400"></canvas>
+            <canvas id="linePlayer1" width="400" height="400"></canvas>
+        </div>
+        <!-- Deux canvas pour les diagrammes en fromage (Player 0 et Player 1) -->
+        <div style="display:flex; gap:2rem; justify-content: space-around; margin-bottom:1rem;">
+            <canvas id="piePlayer0" width="250" height="400"></canvas>
+            <canvas id="piePlayer1" width="250" height="400"></canvas>
+        </div>
+
+        <!-- Zone pour les scores & stats supplémentaires -->
+        <div id="statsList"></div>
+
+    </div>
+
+</div><!-- /#container -->
+
+<!-- Socket.IO (injecté par le serveur Node.js) -->
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- Votre script principal (main.js) -->
+<script type="module" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+:root {
+    --color-player0: #ff5900;  /* Orange pour Joueur 0 */
+    --color-player1: #2f9dcc;  /* Bleu-vert pour Joueur 1 */
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #fafafa;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+#container {
+    display: flex;
+    margin: 1rem;
+    gap: 1rem;
+}
+
+/* Zone animation */
+#animationZone {
+    flex: 1;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 1rem;
+}
+
+/* Zone logs */
+#logsZone {
+    flex: 1;
+    background-color: #fdfcfa;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* Zone stats */
+#statsZone {
+    flex: 1;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    padding: 1rem;
+}
+
+
+
+.scoreWrapper {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+}
+.scoreBox {
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+.scoreBox.player0 {
+    background-color: var(--color-player0);
+}
+.scoreBox.player1 {
+    background-color: var(--color-player1);
+}
+
+/* Indicateur global du leader */
+#leaderIndicator {
+    margin: 0.5rem 0 1rem 0;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Table stats : on garde un style sobre */
+.statsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+.statsTable th,
+.statsTable td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-align: center;
+}
+.statsTable thead {
+    background-color: #f0f0f0;
+}
+
+/* Comparaison face-à-face pour chaque stat */
+.statCompareRow {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+.statLabel {
+    width: 120px;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 1rem;
+}
+.barCompare {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 24px;
+    background-color: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.barValue0,
+.barValue1 {
+    height: 100%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+.barValue0 {
+    background-color: var(--color-player0);
+    justify-content: flex-end; /* Alignement du texte sur la droite */
+}
+.barValue1 {
+    background-color: var(--color-player1);
+    justify-content: flex-start; /* Alignement du texte sur la gauche */
+}
+.valueCompare {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Affichage des stats "face à face" vertical :
+   - on peut jouer sur transform ou sur un double bar horizontal
+   - ici, on fait 2 barres inversées.
+*/
+
+/* On peut rajouter un effet de transition */
+.barValue0,
+.barValue1 {
+    transition: width 0.6s ease-in-out;
+}
+
+/* Quelques classes d'état de "dominance" si l'écart est grand */
+.dominant {
+    animation: pulse 1s infinite alternate;
+}
+@keyframes pulse {
+    0% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.playerLabel {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+.scoreValue {
+    font-size: 1.2rem;
+}
+
+/* Tableau de stats */
+.statsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+.statsTable th,
+.statsTable td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-align: center;
+}
+.statsTable thead {
+    background-color: #f0f0f0;
+}
+
+/* Progress bars */
+.progressContainer {
+    margin: 1rem 0;
+    font-family: sans-serif;
+}
+.progressBar {
+    width: 80%;
+    background-color: #ccc;
+    height: 20px;
+    margin: 4px 0 12px 0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.progressFill {
+    height: 100%;
+    color: #fff;
+    text-align: right;
+    padding-right: 4px;
+    line-height: 20px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: width 0.5s ease-out;
+}
+
+#framesLogsContainer {
+    width: 95%;
+    margin: 1rem auto;
+    overflow-x: auto;
+}
+
+/* Tableau */
+#framesTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    /* Pour la police des logs, on peut passer en monospace */
+    font-family: "Consolas", "Courier New", monospace;
+}
+
+/* En-tête */
+#framesTable thead {
+    background-color: #eee;
+}
+#framesTable th {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Cellules */
+#framesTable td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    vertical-align: top;  /* important pour que le contenu s'aligne en haut */
+}
+
+/* Colonne Frame # */
+.frameIndexCell {
+    text-align: center;
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+/* Cellules de logs */
+.logsCell {
+    white-space: pre-wrap;   /* conserver les sauts de ligne */
+    word-wrap: break-word;   /* couper les mots trop longs si besoin */
+}
+
+/* stdout vs stderr */
+.stdoutLine {
+    color: #444;
+    margin-bottom: 0.2rem;
+}
+.stderrLine {
+    color: #c11;
+    font-style: italic;
+    margin-bottom: 0.2rem;
+}
+
+#animationControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#animationControls button {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#animationControls button:hover {
+    background-color: #0056b3;
+}
+
+#animationControls button:active {
+    transform: scale(0.95);
+}
+
+#animationControls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#animationControls span#animationPosition {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+#animationControls span#animationPosition span {
+    color: #007bff;
+    font-weight: bold;
+}
+
+#animationInfo {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#animationInfo p {
+    margin: 0.5rem 0;
+}
+
+#animationInfo strong {
+    color: #007bff;
+}
+
+#heatmapControls {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#heatmapButtons button {
+    margin: 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #007cba;
+    border-radius: 3px;
+    background-color: #f3f3f3;
+    color: #007cba;
+    cursor: pointer;
+}
+
+#heatmapButtons button.active {
+    background-color: #007cba;
+    color: #fff;
+}
+
+#heatmapButtons button:hover {
+    background-color: #e3e3e3;
+}
+
+/* Conteneur pour le champ Battle ID */
+#battleIdInput {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacement entre le champ et le bouton */
+}
+
+/* Style du label */
+#battleIdInput label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Style du champ d'entrée */
+#battleIdInput input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+    transition: border-color 0.2s;
+}
+
+#battleIdInput input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Style du bouton */
+#battleIdInput button {
+    padding: 5px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#battleIdInput button:hover {
+    background-color: #0056b3;
+}
+
+/* Espacement général pour les sections */
+#animationZone {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+#errorMessage {
+    color: #d9534f;
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+
+.miniMapHtml {
+    margin: 10px 0;
+}
+
+.miniMapHtml table {
+    border: 1px solid #999;
+    border-collapse: collapse;
+}
+
+.miniMapHtml td {
+    border: 1px solid #ccc;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.miniMapHtml img {
+    width: 30px;
+    height: 30px;
+    /* transition pour animer la rotation si besoin */
+    transition: transform 0.2s;
+}
