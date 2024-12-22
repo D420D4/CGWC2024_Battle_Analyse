@@ -455,3 +455,29 @@ h1 {
     /* transition pour animer la rotation si besoin */
     transition: transform 0.2s;
 }
+
+footer {
+    background-color: #f8f8f8;  /* Couleur de fond discrète */
+    border-top: 1px solid #ddd; /* Ligne de séparation */
+    padding: 1rem;              /* Espacement interne */
+    text-align: center;         /* Alignement du texte */
+    font-style: italic;         /* Texte en italique */
+    margin-top: 2rem;           /* Espace supérieur avant le footer */
+}
+
+footer p {
+    margin: 0;   /* Supprime la marge par défaut */
+    color: #333; /* Couleur du texte */
+}
+
+footer a {
+    color: #0073aa;           /* Couleur du lien */
+    text-decoration: none;     /* Retirer le soulignement */
+    font-weight: bold;         /* Rendre le lien plus visible */
+    transition: color 0.3s;    /* Effet de transition sur la couleur */
+}
+
+footer a:hover {
+    color: #005177;            /* Couleur du lien au survol */
+    text-decoration: underline;/* Soulignement au survol */
+}
