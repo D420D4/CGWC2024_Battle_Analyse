@@ -2,7 +2,7 @@
 
 ![Capture de l’application](img/capture.png)
 
-Bienvenue sur **CGWC2024_Battle_Analyse**, un projet Node.js permettant d’analyser les données d’un battle pour l’événement CGWC 2024.
+Bienvenue sur **CGWC2024_Battle_Analyse**, un projet Node.js permettant d’analyser les données d’un battle pour l’événement CodingGame Winter Challenge 2024.
 
 ## Prérequis
 
